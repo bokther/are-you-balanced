@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Open" aria-label="Open" maxlength="1" ng-model="$ctrl.newOpen">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Close" aria-label="Close" maxlength="1" ng-model="$ctrl.newClose">
+        </div>
+        <div class="col">
+            <button class="btn btn-success" ng-click="$ctrl.addPair()">Add</button>
+        </div>
+        <div class="col">
+            <p>{{$ctrl.validationMessage}}</p>
+        </div>
+    </div>
+    <table class="table align-middle table-hover table-striped table-bordered table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Open</th>
+                <th scope="col">Close</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="(key, value) in $ctrl.pairs">
+            <th scope="row">{{ $index + 1 }}</td>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            <td><button type="button" class="btn btn-danger" ng-click="$ctrl.deletePair(key)">Delete</button></td>
+        </tr>
+    </table>
+</div>
+<div class="container">
+    <input ng-model="$ctrl.stringToBalance">
+    <button type="button" class="btn btn-primary" ng-click="$ctrl.validate()">Validate</button>
+    <p>{{$ctrl.result}}</p>
+</div>
