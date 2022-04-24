@@ -1,37 +1,51 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Open" aria-label="Open" maxlength="1" ng-model="$ctrl.newOpen">
-        </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Close" aria-label="Close" maxlength="1" ng-model="$ctrl.newClose">
-        </div>
-        <div class="col">
-            <button class="btn btn-success" ng-click="$ctrl.addPair()">Add</button>
-        </div>
-        <div class="col">
-            <p>{{$ctrl.validationMessage}}</p>
-        </div>
+    <div class="center-flex-col">
+        <h1>Are You Balanced</h1>
+        <span class="custom-instructions">Add pairs of opening and closing characters to drive the logic/ruling behind
+            balancing your text input.</span>
     </div>
-    <table class="table align-middle table-hover table-striped table-bordered table-responsive">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Open</th>
-                <th scope="col">Close</th>
-                <th scope="col">Delete</th>
+    <div class="center-flex">
+        <!-- A pair of inputs to control balancing customization -->
+        <input type="text" size="5" placeholder="Open" maxlength="1" ng-model="$ctrl.newOpen">
+        <input type="text" size="5" placeholder="Close" maxlength="1" ng-model="$ctrl.newClose">
+        <button type="submit" class="btn btn-success btn-sm" ng-click="$ctrl.addPair()">Add</button>
+    </div>
+    <div class="center-flex">
+        <p class="text-danger fs-5">{{$ctrl.validationMessage}}</p>
+    </div>
+
+    <div class="center-flex">
+        <!-- A table to display the set of pairs (both default and custom) -->
+        <table class="table table-sm table-hover table-bordered text-center w-50">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="(key, value) in $ctrl.pairs">
+                <td>{{$index + 1}}</td>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+                <td><button class="btn btn-danger btn-sm" ng-click="$ctrl.deletePair(key)">Delete</button></td>
             </tr>
-        </thead>
-        <tr ng-repeat="(key, value) in $ctrl.pairs">
-            <th scope="row">{{ $index + 1 }}</td>
-            <td>{{ key }}</td>
-            <td>{{ value }}</td>
-            <td><button type="button" class="btn btn-danger" ng-click="$ctrl.deletePair(key)">Delete</button></td>
-        </tr>
-    </table>
-</div>
-<div class="container">
-    <input ng-model="$ctrl.stringToBalance">
-    <button type="button" class="btn btn-primary" ng-click="$ctrl.validate()">Validate</button>
-    <p>{{$ctrl.result}}</p>
+        </table>
+    </div>
+
+    <div class="center-flex">
+        <textarea class="form-control" rows="1" placeholder="Enter text to validate"
+            ng-model="$ctrl.stringToBalance"></textarea>
+    </div>
+    <div class="center-flex">
+        <button type="button" class="btn btn-primary" ng-click="$ctrl.validate()">Validate</button>
+    </div>
+    <div class="center-flex-col">
+        <p>{{$ctrl.result}}</p>
+    </div>
+    <div class="center-flex">
+        <!-- Ended up using ng-class instead of ng-style in case we want to customize more than just the color -->
+        <span class="color-coded-span" ng-repeat="item in $ctrl.colorCoded" ng-class="'color-code-' + item.color">{{item.character}}</span>
+    </div>
 </div>
